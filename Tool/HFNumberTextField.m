@@ -2,8 +2,8 @@
 //  YZNumberTextField.m
 //  NightStation
 //
-//  Created by 夜站 on 2018/1/12.
-//  Copyright © 2018年 liufy. All rights reserved.
+//  Created by 胡斐 on 2018/1/12.
+//  Copyright © 2018年 hufei. All rights reserved.
 //
 
 #import "HFNumberTextField.h"
@@ -109,8 +109,13 @@
     return [NSStringFromClass([inputMode class]) isEqualToString:@"UIKeyboardExtensionInputMode"];
 }
 
-
 #pragma mark- setter/getter
+- (void)setDoneBtnTitle:(NSString *)doneBtnTitle
+{
+    _doneBtnTitle = doneBtnTitle;
+    [_doneBtn setTitle:doneBtnTitle forState:UIControlStateNormal];
+}
+
 - (UIButton *)doneBtn
 {
     if(!_doneBtn){
@@ -133,13 +138,6 @@
         [_trueDoneBtn addTarget:self action:@selector(_doneBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _trueDoneBtn;
-}
-
-#pragma mark - setter/getter
-- (void)setDoneBtnTitle:(NSString *)doneBtnTitle
-{
-    _doneBtnTitle = doneBtnTitle;
-    [_doneBtn setTitle:doneBtnTitle forState:UIControlStateNormal];
 }
 
 @end
