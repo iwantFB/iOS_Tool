@@ -2,7 +2,7 @@
 //  YZNumberTextField.m
 //  NightStation
 //
-//  Created by 胡斐 on 2018/1/12.
+//  Created by jackson on 2018/1/12.
 //  Copyright © 2018年 hufei. All rights reserved.
 //
 
@@ -26,7 +26,36 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    
+    if(self){
+        [self p_configTF];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    return [self initWithFrame:CGRectZero];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if(self){
+        [self p_configTF];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    _doneBtn = nil;
+    _trueDoneBtn = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark- private method
+- (void)p_configTF
+{
     self.keyboardType = UIKeyboardTypeNumberPad;
     self.hideKeyboard = YES;
     
@@ -35,7 +64,6 @@
     
     //注册键盘弹起通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    return self;
 }
 
 #pragma mark- action
@@ -49,13 +77,6 @@
 {
     self.doneBtn.hidden = YES;
     self.trueDoneBtn.hidden = YES;
-}
-
-- (void)dealloc
-{
-    _doneBtn = nil;
-    _trueDoneBtn = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)keyboardWillShow:(NSNotification *)noti
