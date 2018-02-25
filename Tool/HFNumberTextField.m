@@ -10,6 +10,7 @@
 
 #define kScreen_Width [UIScreen mainScreen].bounds.size.width
 #define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define isiPhoneX (kScreen_Height == 812 && kScreen_Width == 375)
 
 @interface HFNumberTextField()
 
@@ -102,11 +103,12 @@
             [self performSelector:@selector(addBtns:) withObject:@[keyboardView,keyboardWindow] afterDelay:0.01f];
         }
     }
-    CGRect keyboardBounds = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat btnWidth = keyboardBounds.size.width / 3.0;
-    CGFloat btnHeight = keyboardBounds.size.height / 4.0;
+    CGRect keyboardFrame = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat iphoneX_Space = isiPhoneX?75.f:0.f;//iphoneX 的键盘高度比其他的高出了75
+    CGFloat btnWidth = keyboardFrame.size.width / 3.0;
+    CGFloat btnHeight = (keyboardFrame.size.height - iphoneX_Space) / 4.0;
     self.doneBtn.frame = CGRectMake(0, btnHeight*3.0, btnWidth, btnHeight);
-    self.trueDoneBtn.frame = CGRectMake(0, kScreen_Height-btnHeight, btnWidth, btnHeight);
+    self.trueDoneBtn.frame = CGRectMake(0,  keyboardFrame.origin.y + btnHeight*3.0, btnWidth, btnHeight);
 }
 
 - (void)addBtns:(NSArray *)superViews {
