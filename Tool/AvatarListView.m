@@ -60,11 +60,7 @@
 
 #pragma mark- life circle
 - (instancetype)init{
-    self = [super init];
-    if(self){
-        [self p_initSubView];
-    }
-    return self;
+    return [self initWithFrame:CGRectZero];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -88,7 +84,7 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
-
+    
     [_avatarCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).insets(_edges);
     }];
@@ -112,7 +108,6 @@
     
     CGFloat zPosition = _coverType == AvatarViewCoverTypeRight ? indexPath.item + 1000 : 1000 - indexPath.item;
     cell.layer.zPosition = zPosition;
-
     return cell;
 }
 
@@ -125,6 +120,11 @@
 #pragma mark- private method
 - (void)p_initSubView
 {
+    _itemHeight = _itemWidth = CGRectGetHeight(self.frame);
+    _cornerRadius = _itemHeight / 2.0;
+    _coverType = AvatarViewCoverTypeLeft;
+    _coverSpace = _itemHeight / 2.0 - 10;
+    
     [self addSubview:self.avatarCollectionView];
 }
 
@@ -179,3 +179,4 @@
 }
 
 @end
+
