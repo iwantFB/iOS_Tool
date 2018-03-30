@@ -3,33 +3,63 @@
 //  NightStation
 //
 //  Created by 夜站 on 2018/1/12.
-//  Copyright © 2018年 liufy. All rights reserved.
+//  Copyright © 2018年 胡斐. All rights reserved.
 //
 
 #import "YZVerifyButton.h"
 
-@implementation YZVerifyButton
+#define kButtonDisaleTitleColor [UIColor colorWithRed:157/255.0 green:157/255.0 blue:157/255.0 alpha:1]
+#define kButtonNormalTitleColor [UIColor darkGrayColor]
+#define kDuration 59
 
+@implementation YZVerifyButton
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    [self setTitleColor:YZColor(157, 157, 157) forState:UIControlStateDisabled];
-    [self setTitleColor:YZGlobalBgColor forState:UIControlStateNormal];
+    [self refreshUI];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder]){
+        [self p_initUI];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if(self){
+        [self p_initUI];
+        [self refreshUI];
+    }
+    return self;
+}
+
+- (void)p_initUI
+{
+    [self setTitleColor:kButtonDisaleTitleColor forState:UIControlStateDisabled];
+    [self setTitleColor:kButtonNormalTitleColor forState:UIControlStateNormal];
 }
 
 - (void)refreshUI
 {
-    dispatch_source_cancel(_timer);
-    self.enabled = YES;
-    [self setTitle:@"获取验证码" forState:UIControlStateNormal];
+    if(_timer)dispatch_source_cancel(_timer);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        //设置按钮的样式
+        [self setTitle:@"获取验证码" forState:UIControlStateNormal];
+        self.enabled = YES;
+    });
 }
 
 dispatch_source_t _timer ;
 // 开启倒计时效果
 -(void)openCountdown{
     
-    __block NSInteger time = 59; //倒计时时间
+    __block NSInteger time = kDuration; //倒计时时间
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -39,15 +69,7 @@ dispatch_source_t _timer ;
     dispatch_source_set_event_handler(_timer, ^{
         
         if(time <= 0){ //倒计时结束，关闭
-            
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                //设置按钮的样式
-                [self setTitle:@"获取验证码" forState:UIControlStateNormal];
-                self.enabled = YES;
-            });
-            
+            [self refreshUI];
         }else{
             
             int seconds = time % 60;
@@ -65,3 +87,4 @@ dispatch_source_t _timer ;
 }
 
 @end
+

@@ -16,20 +16,24 @@
 
 @implementation HFCircleImageView
 
-- (void)updateConstraints
+- (void)layoutSubviews
 {
-    [super updateConstraints];
+    [super layoutSubviews];
     
+    [self p_updateCircleMask];
+}
+
+- (void)p_updateCircleMask
+{
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
     
     CGFloat centerX = CGRectGetMidX(self.bounds);
     CGFloat centerY = CGRectGetMidY(self.bounds);
-
+    
     CGFloat corner = MIN(width, height)/2.0;
     NSLog(@"%f",CGRectGetWidth(self.frame));
     NSLog(@"%f",corner);
-    NSLog(@"%f",[[UIScreen mainScreen] scale]);
     
     if(CGSizeEqualToSize(_cornerSize, CGSizeZero)){
         _cornerSize = CGSizeMake(corner, corner);
@@ -37,7 +41,7 @@
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(centerX-corner, centerY-corner, corner*2.0, corner*2.0) byRoundingCorners:UIRectCornerAllCorners cornerRadii:_cornerSize];
     
     self.maskLayer.path = circlePath.CGPath;
-
+    
     self.layer.mask = self.maskLayer;
 }
 
@@ -51,3 +55,4 @@
     return _maskLayer;
 }
 @end
+
