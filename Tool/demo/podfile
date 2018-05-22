@@ -1,0 +1,5 @@
+target 'Tool' do
+use_frameworks!
+        pod 'SDWebImage', '~> 4.0'
+        pod 'Masonry'
+end
