@@ -11,11 +11,13 @@
 #import "YZVerifyButton.h"
 #import "FHClipImageViewController.h"
 #import "AvatarListView.h"
+#import "HFGradientButton.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
 @property (weak, nonatomic) IBOutlet HFCircleImageView *imageView;
 @property (weak, nonatomic) IBOutlet AvatarListView *avatarListView;
+@property (weak, nonatomic) IBOutlet HFGradientButton *footerButton;
 
 @end
 
@@ -31,6 +33,8 @@
     _avatarListView.avatarArr = @[@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",];
     _avatarListView.borderWidth = 1.0;
     _avatarListView.borderColor = [UIColor blueColor];
+    
+    [_footerButton buildHorizBtnColorWithColors:@[(id)[UIColor redColor].CGColor,(id)[UIColor orangeColor].CGColor]];
 }
 
 - (IBAction)startCount:(YZVerifyButton *)sender {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Xj-RS-RWe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Xj-RS-RWe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,6 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="5Cd-3A-uFK">
+                            <rect key="frame" x="0.0" y="463" width="375" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aau-Il-RDu" customClass="HFGradientButton">
+                                    <rect key="frame" x="15" y="10" width="345" height="47"/>
+                                    <state key="normal" title="确定">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="aau-Il-RDu" secondAttribute="trailing" constant="15" id="WAy-Ms-8fS"/>
+                                <constraint firstItem="aau-Il-RDu" firstAttribute="top" secondItem="5Cd-3A-uFK" secondAttribute="top" constant="10" id="Zsg-bh-kI7"/>
+                                <constraint firstAttribute="bottom" secondItem="aau-Il-RDu" secondAttribute="bottom" id="djo-fd-83B"/>
+                                <constraint firstItem="aau-Il-RDu" firstAttribute="leading" secondItem="5Cd-3A-uFK" secondAttribute="leading" constant="15" id="hZ4-UD-trY"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="i5V-Ze-TsC">
                                 <cells>
@@ -213,6 +232,7 @@
                     <navigationItem key="navigationItem" id="4M8-fA-sc3"/>
                     <connections>
                         <outlet property="avatarListView" destination="pcg-xC-pEx" id="BMp-Bt-de7"/>
+                        <outlet property="footerButton" destination="aau-Il-RDu" id="WgZ-wr-Xg2"/>
                         <outlet property="imageView" destination="l7J-Q7-mve" id="vMK-cH-CyK"/>
                         <outlet property="resultImageView" destination="f4a-iu-0rJ" id="tCh-Na-cPY"/>
                     </connections>
