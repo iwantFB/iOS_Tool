@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class FHSegmentView;
+
+@protocol FHSegmentViewDelegate<NSObject>
+
+- (void)segmentView:(FHSegmentView *)segmentView
+     didSelectedTab:(NSInteger)selectedTab;
+
+@end
 
 @interface FHSegmentConfiguration : NSObject
 
@@ -32,7 +40,7 @@
 
 /**顶部按钮的背景视图的颜色*/
 @property (nonatomic, strong) UIColor *segmentColor;
-//默认为NO,不显示分割线
+///默认为NO,不显示分割线
 @property (nonatomic, assign) BOOL needSeparator;
 @property (nonatomic, strong) UIColor *separatorColor;
 @property (nonatomic, assign) UIEdgeInsets separatorInset;
@@ -50,6 +58,7 @@
 
 @interface FHSegmentView : UIView
 
+///若要改变,调用selectIndex: animation:
 @property (nonatomic, assign, readonly) NSInteger currentIndex;
 
 
@@ -58,13 +67,19 @@
 
 @property (nonatomic, strong)FHSegmentConfiguration *configration;
 
+@property (nonatomic, weak) id<FHSegmentViewDelegate>delegate;
+
+///在buildUI之前设置
 @property (nonatomic, copy) NSArray<UIViewController *> *childVCArr;
 
-- (instancetype)initWithFrame:(CGRect)frame configration:(FHSegmentConfiguration *)configration;
+- (instancetype)initWithFrame:(CGRect)frame
+                   childVCArr:(nonnull NSArray *)childVCArr
+                 configration:(nullable FHSegmentConfiguration *)configration;
 
+/// 配置好了数据之后开始配置视图,这应该是放在最后的
 - (void)buildUI;
 
-/**必须在调用了一次build之后才能有效*/
+/**选择哪一个tab*/
 - (void)selectIndex:(NSInteger )index animation:(BOOL)animation;
 
 @end

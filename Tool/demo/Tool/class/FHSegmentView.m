@@ -30,7 +30,7 @@
 
 #pragma mark - life circle
 - (instancetype)init{
-    return  [self initWithFrame:CGRectZero configration:nil];
+    return  [self initWithFrame:[UIScreen mainScreen].bounds childVCArr:nil configration:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -39,14 +39,18 @@
         NSLog(@"不要设置frame为CGRectZore");
         return nil;
     };
-    return [self initWithFrame:frame configration:nil];
+    return [self initWithFrame:frame childVCArr:nil configration:nil];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame configration:(FHSegmentConfiguration *)configration
+- (instancetype)initWithFrame:(CGRect)frame
+                   childVCArr:(nonnull NSArray *)childVCArr
+                 configration:(nullable FHSegmentConfiguration *)configration;
 {
     self = [super initWithFrame:frame];
     if(self){
         if(!configration)_configration = [FHSegmentConfiguration defaluConfiguration];
+        if(childVCArr)_childVCArr = childVCArr;
+        [self buildUI];
     }
     return self;
 }
@@ -138,6 +142,9 @@
     _currentIndex = index;
     [_scrollView setContentOffset:CGPointMake(index * CGRectGetWidth(self.frame), 0) animated:animation];
     [self headerViewAnimation];
+    if(_delegate && [_delegate respondsToSelector:@selector(segmentView:didSelectedTab:)]){
+        [_delegate segmentView:self didSelectedTab:_currentIndex];
+    }
 }
 
 #pragma mark - scrollViewDelegate
