@@ -10,6 +10,51 @@
 #import "Masonry.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+@implementation AvatarListConfigration
+
+
+@end
+
+@interface FHAvatarFlowLayout : UICollectionViewFlowLayout
+
+@property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) AvatarListConfigration *configration;
+
+@end
+
+@implementation FHAvatarFlowLayout
+
+-(void)prepareLayout{
+    //    获取collectionView中第0组的item个数
+    NSInteger itemNum= [self.collectionView numberOfItemsInSection:0];
+    
+    for (NSInteger i = 0; i < itemNum; i++) {
+        
+        NSIndexPath *indexpath = [NSIndexPath indexPathForItem:i inSection:0];
+        //布局
+        UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexpath];
+        
+        CGFloat x = 0 ;
+        CGFloat y = _configration.edges.top;
+        CGFloat item_width = _configration.itemWidth;
+        CGFloat item_Height = _configration.itemHeight;
+        if(_configration.avatarMargin){
+            x = _configration.edges.left + i * _configration.avatarMargin + (i+1)*item_width;
+        }else if (_configration.coverType == AvatarViewCoverTypeRight){
+            x = _configration.edges.left + (item_width - _configration.coverSpace) * i;
+        }
+        attr.frame = CGRectMake(x, y, item_width, item_Height);
+        
+        [self.dataArr addObject:attr];
+        
+    }
+    
+}
+
+
+@end
+
 #define SINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
 #define SINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
 
