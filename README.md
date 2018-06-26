@@ -10,4 +10,4 @@
 <img src="http://www.code4app.com/data/attachment/forum/201803/19/181849npm1p991wn3asbps.png" width="105.5" height="187.7" alt="UI" />
 
 6. 图片裁剪，自由比例（未完善）
-<img src="http://www.code4app.com/data/attachment/forum/201804/22/221239z68pty6d8otwdo4k.png" width="105.5" height="187.7" alt="UI" />
+
