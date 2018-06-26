@@ -12,6 +12,22 @@
 
 @implementation AvatarListConfigration
 
++ (instancetype)defaultConfigration
+{
+    AvatarListConfigration *config = [[AvatarListConfigration alloc] init];
+    config.coverType = AvatarViewCoverTypeLeft;
+    config.coverSpace = 50;
+    config.edges = UIEdgeInsetsMake(10, 10, 0, 0);
+    config.itemHeight = 100;
+    config.itemWidth = 100;
+    config.borderColor = [UIColor blueColor];
+    config.borderWidth = 2;
+    config.cornerRadius = 50;
+    config.placeHolderImageStr = @"timg";
+    //这个值设置之后会覆盖掉coverSpace,coverType会变成none,这样是没有覆盖的,只有间隔
+//    config.avatarMargin = 10;
+    return config;
+}
 
 @end
 
@@ -27,6 +43,7 @@
 
 -(void)prepareLayout{
     //    获取collectionView中第0组的item个数
+    _dataArr = [NSMutableArray array];
     NSInteger itemNum= [self.collectionView numberOfItemsInSection:0];
     
     for (NSInteger i = 0; i < itemNum; i++) {
@@ -40,18 +57,37 @@
         CGFloat item_width = _configration.itemWidth;
         CGFloat item_Height = _configration.itemHeight;
         if(_configration.avatarMargin){
-            x = _configration.edges.left + i * _configration.avatarMargin + (i+1)*item_width;
-        }else if (_configration.coverType == AvatarViewCoverTypeRight){
+            x = _configration.edges.left + i*item_width + i * _configration.avatarMargin;
+        }else {
             x = _configration.edges.left + (item_width - _configration.coverSpace) * i;
         }
         attr.frame = CGRectMake(x, y, item_width, item_Height);
         
         [self.dataArr addObject:attr];
-        
     }
-    
 }
 
+- (CGSize)collectionViewContentSize
+{
+    CGFloat contentWidth = _configration.edges.left + _configration.edges.right;
+    NSInteger count = self.dataArr.count;
+    if(_configration.avatarMargin){
+        contentWidth += _configration.itemWidth*count + _configration.avatarMargin*count - _configration.avatarMargin;
+    }else{
+        contentWidth += _configration.itemWidth*count - _configration.coverSpace*count + _configration.coverSpace;
+    }
+    return CGSizeMake(contentWidth, _configration.itemHeight + _configration.edges.top+_configration.edges.bottom);
+}
+
+- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    return self.dataArr;
+}
+
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
+{
+    return _dataArr[itemIndexPath.item];
+}
 
 @end
 
@@ -89,6 +125,7 @@
     if(!_avatarImageView)
     {
         _avatarImageView = [[UIImageView alloc] init];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _avatarImageView;
 }
@@ -105,16 +142,27 @@
 
 #pragma mark- life circle
 - (instancetype)init{
-    return [self initWithFrame:CGRectZero];
+    return [self initWithFrame:CGRectZero configration:[AvatarListConfigration defaultConfigration] avatarArr:nil selectedBlock:nil];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+                 configration:(AvatarListConfigration *)configration
+                    avatarArr:(NSArray *)avatarArr
+                selectedBlock:(void (^)(NSInteger))selectedBlock
+{
+    self = [super initWithFrame:frame];
+    if(self){
+        _configration = configration;
+        _avatarArr = avatarArr;
+        _selectedBlock = selectedBlock;
+        [self p_initSubView];
+    }
+    return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if(self){
-        [self p_initSubView];
-    }
-    return self;
+    return [self initWithFrame:frame configration:[AvatarListConfigration defaultConfigration] avatarArr:nil selectedBlock:nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -129,10 +177,28 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
-
     [_avatarCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).insets(_edges);
+        make.edges.equalTo(self).insets(_configration.edges);
     }];
+}
+
+#pragma mark- hitTest
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *result = [super hitTest:point withEvent:event];
+    UIView *target = nil;
+    
+    UICollectionView *collectionView = self.avatarCollectionView;
+    NSArray *cells = collectionView.visibleCells;
+    for (UICollectionViewCell *cell in cells) {
+        CGPoint location = [self convertPoint:point toView:collectionView];
+        if(CGRectContainsPoint(cell.frame, location) && cell.layer.zPosition > target.layer.zPosition){
+            target = cell;
+        }
+    }
+    if(target)return target;
+    
+    return result;
 }
 
 #pragma mark- collectionViewDataSource
@@ -144,62 +210,38 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HFAvatarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HFAvatarCell" forIndexPath:indexPath];
-
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_avatarArr[indexPath.item]] placeholderImage:[UIImage imageNamed:_placeHolderImageStr]];
-    cell.layer.borderColor = _borderColor.CGColor;
-    cell.layer.borderWidth = _borderWidth;
-    cell.layer.cornerRadius = _cornerRadius;
+    
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_avatarArr[indexPath.item]] placeholderImage:[UIImage imageNamed:_configration.placeHolderImageStr]];
+    cell.layer.borderColor = _configration.borderColor.CGColor;
+    cell.layer.borderWidth = _configration.borderWidth;
+    cell.layer.cornerRadius = _configration.cornerRadius;
     cell.layer.masksToBounds = YES;
-
-    CGFloat zPosition = _coverType == AvatarViewCoverTypeRight ? indexPath.item + 1000 : 1000 - indexPath.item;
+    
+    CGFloat zPosition = _configration.coverType == AvatarViewCoverTypeRight ? indexPath.item + 1000 : 1000 - indexPath.item;
     cell.layer.zPosition = zPosition;
     return cell;
 }
 
-#pragma mark- flowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(_itemWidth, _itemHeight);
+    if(_selectedBlock)_selectedBlock(indexPath.item);
 }
 
 #pragma mark- private method
 - (void)p_initSubView
 {
-    _itemHeight = _itemWidth = CGRectGetHeight(self.frame);
-    _cornerRadius = _itemHeight / 2.0;
-    _coverType = AvatarViewCoverTypeLeft;
-    _coverSpace = _itemHeight / 2.0 - 10;
-
     [self addSubview:self.avatarCollectionView];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-
-    [self p_refreshUI];
-}
-
-- (void)p_refreshUI
-{
-    _edges = UIEdgeInsetsMake(_edges.top, _edges.left, CGRectGetHeight(self.frame) - _itemHeight - _edges.top, _edges.right);
-
-    [_avatarCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).insets(_edges);
-    }];
 }
 
 #pragma mark- setter/getter
 - (UICollectionView *)avatarCollectionView
 {
     if(!_avatarCollectionView){
-        UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-        flow.itemSize = CGSizeMake(_itemWidth, _itemHeight);
-        flow.minimumLineSpacing = _avatarMargin?_avatarMargin:-_coverSpace;
+        FHAvatarFlowLayout *flow = [[FHAvatarFlowLayout alloc] init];
         flow.minimumInteritemSpacing = 0;
         flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-
-        _avatarCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(_edges.left, _edges.top, CGRectGetWidth(self.frame) - _edges.left - _edges.right, CGRectGetHeight(self.frame) - _edges.top - _edges.bottom) collectionViewLayout:flow];
+        flow.configration = _configration;
+        _avatarCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) ) collectionViewLayout:flow];
         _avatarCollectionView.backgroundColor = [UIColor clearColor];
         _avatarCollectionView.showsVerticalScrollIndicator = NO;
         _avatarCollectionView.showsHorizontalScrollIndicator = NO;
@@ -210,17 +252,19 @@
     return _avatarCollectionView;
 }
 
-- (void)setItemHeight:(CGFloat)itemHeight
-{
-    _itemHeight = itemHeight;
-    [self p_refreshUI];
-}
-
 - (void)setAvatarArr:(NSArray *)avatarArr
 {
     _avatarArr = avatarArr;
-
+    
     [_avatarCollectionView reloadData];
+}
+
+- (void)setConfigration:(AvatarListConfigration *)configration
+{
+    _configration = configration;
+    FHAvatarFlowLayout *layout = (FHAvatarFlowLayout *)self.avatarCollectionView.collectionViewLayout;
+    layout.configration = _configration;
+    [self.avatarCollectionView reloadData];
 }
 
 @end

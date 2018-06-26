@@ -31,26 +31,20 @@ typedef NS_ENUM(NSInteger, AvatarViewCoverType){
 //图片占位图
 @property (nonatomic, copy)NSString *placeHolderImageStr;
 
-@property (nonatomic, copy)NSArray *avatarArr;
++ (instancetype)defaultConfigration;
 
 @end
 
 @interface AvatarListView : UIView
 
-@property (nonatomic) CGFloat itemHeight;
-@property (nonatomic) CGFloat itemWidth;
-@property (nonatomic, strong) UIColor *borderColor;
-@property (nonatomic) CGFloat borderWidth;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic,) AvatarViewCoverType coverType;
-@property (nonatomic,) CGFloat coverSpace;
-//图片之间的间距设置这个值之后会默认覆盖掉coverType, coverSpace
-@property (nonatomic,) CGFloat avatarMargin;
-//距离上左下右的距离
-@property (nonatomic,) UIEdgeInsets edges;
-//图片占位图
-@property (nonatomic, copy)NSString *placeHolderImageStr;
+@property (nonatomic, strong)AvatarListConfigration *configration;
 
 @property (nonatomic, copy)NSArray *avatarArr;
+
+@property (nonatomic, copy) void(^selectedBlock)(NSInteger item);
+
+- (instancetype)initWithFrame:(CGRect)frame
+                 configration:(AvatarListConfigration *)configration
+                    avatarArr:(NSArray *)avatarArr selectedBlock:(void(^)(NSInteger item)) selectedBlock;
 
 @end

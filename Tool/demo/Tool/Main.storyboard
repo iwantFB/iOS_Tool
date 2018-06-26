@@ -181,7 +181,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4a-iu-0rJ">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4a-iu-0rJ">
                                                     <rect key="frame" x="199.5" y="10" width="160.5" height="160.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="f4a-iu-0rJ" secondAttribute="height" id="5N4-AV-Ly1"/>

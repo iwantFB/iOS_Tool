@@ -30,9 +30,11 @@
     _imageView.cornerSize = CGSizeMake(5, 5);
     
     //个人觉得设置图片的z-position不是一种特别好的办法，还是要重写flowlayout试试
-    _avatarListView.avatarArr = @[@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",];
-    _avatarListView.borderWidth = 1.0;
-    _avatarListView.borderColor = [UIColor blueColor];
+    _avatarListView.avatarArr = @[@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",@"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3912945903,2440251137&fm=27&gp=0.jpg",];
+    _avatarListView.configration = [AvatarListConfigration defaultConfigration];
+    _avatarListView.selectedBlock = ^(NSInteger item) {
+        NSLog(@"点击的是%ld",(long)item);
+    };
     
     [_footerButton buildHorizBtnColorWithColors:@[(id)[UIColor redColor].CGColor,(id)[UIColor orangeColor].CGColor]];
 }
