@@ -48,7 +48,10 @@
 {
     self = [super initWithFrame:frame];
     if(self){
-        if(!configration)_configration = [FHSegmentConfiguration defaluConfiguration];
+        _configration = configration
+        if(!_configration){
+            _configration = [FHSegmentConfiguration defaluConfiguration];
+        }
         if(childVCArr)_childVCArr = childVCArr;
         [self buildUI];
     }
