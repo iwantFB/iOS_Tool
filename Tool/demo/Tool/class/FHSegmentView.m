@@ -48,10 +48,8 @@
 {
     self = [super initWithFrame:frame];
     if(self){
-        _configration = configration
-        if(!_configration){
-            _configration = [FHSegmentConfiguration defaluConfiguration];
-        }
+        configration = _configration;
+        if(!configration)_configration = [FHSegmentConfiguration defaluConfiguration];
         if(childVCArr)_childVCArr = childVCArr;
         [self buildUI];
     }
@@ -71,6 +69,7 @@
 {
     for (UIButton *item in _itemsArr) {
         item.selected = _currentIndex + 999 == item.tag;
+        item.titleLabel.font = _currentIndex + 999 == item.tag ? _configration.fontForSelect : _configration.fontForNormal;
     }
 }
 
@@ -175,7 +174,8 @@
     [item setTitleColor:_configration.textColorForSelected forState:UIControlStateSelected];
     
     [item setTitle:title forState:UIControlStateNormal];
-
+    if(_configration.fontForNormal)item.titleLabel.font = _configration.fontForNormal;
+    
     CGFloat itemX,itemY, itemHeight,itemWidth;
     //自动调整的话只要设置config的itemWith,itemHeight 和itemSpace
     if(_configration.adjustCenter){
@@ -213,7 +213,7 @@
         assert(0);
         return nil;
     }
-
+    
     CGFloat alphaChannel;
     [color getRed:NULL green:NULL blue:NULL alpha:&alphaChannel];
     BOOL opaqueImage = (alphaChannel == 1.0);
@@ -221,7 +221,7 @@
     UIGraphicsBeginImageContextWithOptions(rect.size, opaqueImage, [UIScreen mainScreen].scale);
     [color setFill];
     UIRectFill(rect);
-     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     return image;
@@ -270,25 +270,25 @@
 + (instancetype)defaluConfiguration
 {
     FHSegmentConfiguration *configuration = [[FHSegmentConfiguration alloc] init];
-    configuration.fontSize = 14.0;
     configuration.textColorForNormal = [UIColor lightGrayColor];
-    configuration.textColorForSelected = [UIColor orangeColor];
-    configuration.bgColorForNormal = [UIColor blueColor];
-    configuration.bgColorForSelected = [UIColor redColor];
+    configuration.textColorForSelected = [UIColor blackColor];
+    configuration.bgColorForNormal = [UIColor clearColor];
+    configuration.bgColorForSelected = [UIColor clearColor];
     configuration.itemWidth = 100;
     configuration.itemHeight = 30;
-    configuration.itemSpace = 20;
+    configuration.itemSpace = 10;
     configuration.cornerRadius = 15.0;
-    configuration.adjustCenter = YES;
+    configuration.insets = UIEdgeInsetsMake(20, 100, 10, 100);
+    configuration.adjustCenter = NO;
+    configuration.fontForNormal = [UIFont systemFontOfSize:10.0];
+    configuration.fontForSelect = [UIFont systemFontOfSize:14.0];
     
-    configuration.separatorColor = [UIColor redColor];
-    configuration.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
-    configuration.needSeparator = YES;
+    configuration.needSeparator = NO;
     
-    configuration.segmentHeight = 50;
+    configuration.segmentHeight = 64;
     configuration.segmentColor = [UIColor whiteColor];
     configuration.indexViewWidth = 25.f;
-    configuration.indexViewBottomMargin = 0.f;
+    configuration.indexViewBottomMargin = 10.f;
     configuration.indexViewHeight = 2.0;
     configuration.indexViewColor = [UIColor purpleColor];
     configuration.scrollAnimation = YES;
