@@ -18,7 +18,8 @@
 
 @interface FHSegmentConfiguration : NSObject
 
-@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, strong) UIFont *fontForSelect;
+@property (nonatomic, strong) UIFont *fontForNormal;
 
 @property (nonatomic, strong) UIColor *textColorForNormal;
 @property (nonatomic, strong) UIColor *textColorForSelected;
@@ -36,6 +37,7 @@
 @property (nonatomic, assign) BOOL    adjustCenter;
 @property (nonatomic, assign) UIEdgeInsets insets;
 
+///顶部的数据的高度
 @property (nonatomic, assign) CGFloat segmentHeight;
 
 /**顶部按钮的背景视图的颜色*/
