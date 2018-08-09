@@ -11,6 +11,7 @@
 #import "YZVerifyButton.h"
 #import "FHClipImageViewController.h"
 #import "AvatarListView.h"
+#import "FHAlertSheetView.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
@@ -44,6 +45,24 @@
         _resultImageView.image = result;
     }];
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)checkSheetView:(id)sender {
+    //cancel 会自动分到下一组去，分组有且只有2组，可以设置间隔
+    FHAlertSheetView *alert = [FHAlertSheetView alertControllerWithTitle:@"头" message:@"message" preferredStyle:FHAlertControllerStyleActionSheet];
+    FHAlertAction *action1 = [FHAlertAction actionWithTitle:@"one" style:FHAlertActionStyleDefault handler:^(FHAlertAction *action) {
+        NSLog(@"one");
+    }];
+    FHAlertAction *action2 = [FHAlertAction actionWithTitle:@"two" fontSize:30 textColor:[UIColor yellowColor] style:FHAlertActionStyleDefault handler:^(FHAlertAction *action) {
+        NSLog(@"two");
+    }];
+    FHAlertAction *action3 = [FHAlertAction actionWithTitle:@"three" style:FHAlertActionStyleCancel handler:^(FHAlertAction *action) {
+        NSLog(@"three");
+    }];
+    [alert addAction:action1];
+    [alert addAction:action2];
+    [alert addAction:action3];
+    [alert show];
+    
 }
 
 - (void)didReceiveMemoryWarning {

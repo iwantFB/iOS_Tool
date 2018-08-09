@@ -21,6 +21,9 @@
 		7A189A3220AFE84400BF29CC /* YZVerifyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A189A2B20AFE84400BF29CC /* YZVerifyButton.m */; };
 		7A189A3420AFE87B00BF29CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A189A3320AFE87B00BF29CC /* Main.storyboard */; };
 		7A189A3620AFE8DD00BF29CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A189A3520AFE8DD00BF29CC /* ViewController.m */; };
+		7A1EA3E3211C680A00986B81 /* FHAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3D7211C680A00986B81 /* FHAlertSheetView.m */; };
+		7A1EA3E4211C680A00986B81 /* FHAlertHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3D8211C680A00986B81 /* FHAlertHeaderView.m */; };
+		7A1EA3E5211C680A00986B81 /* FHAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3DA211C680A00986B81 /* FHAlertAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,12 @@
 		7A189A3320AFE87B00BF29CC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7A189A3520AFE8DD00BF29CC /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7A189A3720AFE9C400BF29CC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7A1EA3D6211C680A00986B81 /* FHAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAlertAction.h; sourceTree = "<group>"; };
+		7A1EA3D7211C680A00986B81 /* FHAlertSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHAlertSheetView.m; sourceTree = "<group>"; };
+		7A1EA3D8211C680A00986B81 /* FHAlertHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHAlertHeaderView.m; sourceTree = "<group>"; };
+		7A1EA3D9211C680A00986B81 /* FHAlertSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAlertSheetView.h; sourceTree = "<group>"; };
+		7A1EA3DA211C680A00986B81 /* FHAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHAlertAction.m; sourceTree = "<group>"; };
+		7A1EA3DB211C680A00986B81 /* FHAlertHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAlertHeaderView.h; sourceTree = "<group>"; };
 		A179C0B69956747C3A8FE7F0 /* Pods-Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tool.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tool/Pods-Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D75422F1FB87A10101178BF3 /* Pods_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,6 +112,7 @@
 		7A189A1C20AFE84400BF29CC /* class */ = {
 			isa = PBXGroup;
 			children = (
+				7A1EA3D5211C680A00986B81 /* sheet */,
 				7A189A1D20AFE84400BF29CC /* HFCircleImageView.h */,
 				7A189A1E20AFE84400BF29CC /* AvatarListView.h */,
 				7A189A1F20AFE84400BF29CC /* HFNumberTextField.h */,
@@ -127,6 +137,19 @@
 				7A189A2920AFE84400BF29CC /* FHClipImageViewController.h */,
 			);
 			path = "图片裁剪";
+			sourceTree = "<group>";
+		};
+		7A1EA3D5211C680A00986B81 /* sheet */ = {
+			isa = PBXGroup;
+			children = (
+				7A1EA3D6211C680A00986B81 /* FHAlertAction.h */,
+				7A1EA3DA211C680A00986B81 /* FHAlertAction.m */,
+				7A1EA3D9211C680A00986B81 /* FHAlertSheetView.h */,
+				7A1EA3D7211C680A00986B81 /* FHAlertSheetView.m */,
+				7A1EA3DB211C680A00986B81 /* FHAlertHeaderView.h */,
+				7A1EA3D8211C680A00986B81 /* FHAlertHeaderView.m */,
+			);
+			path = sheet;
 			sourceTree = "<group>";
 		};
 		9234DB07868D126071EB703A /* Pods */ = {
@@ -262,11 +285,14 @@
 			files = (
 				7A189A3120AFE84400BF29CC /* FHSegmentView.m in Sources */,
 				7A189A2C20AFE84400BF29CC /* HFCircleImageView.m in Sources */,
+				7A1EA3E3211C680A00986B81 /* FHAlertSheetView.m in Sources */,
+				7A1EA3E5211C680A00986B81 /* FHAlertAction.m in Sources */,
 				7A189A3220AFE84400BF29CC /* YZVerifyButton.m in Sources */,
 				7A189A1620AFE76A00BF29CC /* main.m in Sources */,
 				7A189A3620AFE8DD00BF29CC /* ViewController.m in Sources */,
 				7A189A2D20AFE84400BF29CC /* HFNumberTextField.m in Sources */,
 				7A189A0820AFE76A00BF29CC /* AppDelegate.m in Sources */,
+				7A1EA3E4211C680A00986B81 /* FHAlertHeaderView.m in Sources */,
 				7A189A2E20AFE84400BF29CC /* AvatarListView.m in Sources */,
 				7A189A3020AFE84400BF29CC /* FHClipImageViewController.m in Sources */,
 				7A189A2F20AFE84400BF29CC /* MaskView.m in Sources */,
