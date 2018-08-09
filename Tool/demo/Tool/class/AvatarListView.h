@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, AvatarViewCoverType){
+    ///右边压住左边
     AvatarViewCoverTypeRight,
     AvatarViewCoverTypeLeft,
     AvatarViewCoverTypeNone
 };
 
-@interface AvatarListView : UIView
+@interface AvatarListConfigration : NSObject
 
 @property (nonatomic) CGFloat itemHeight;
 @property (nonatomic) CGFloat itemWidth;
@@ -30,6 +31,20 @@ typedef NS_ENUM(NSInteger, AvatarViewCoverType){
 //图片占位图
 @property (nonatomic, copy)NSString *placeHolderImageStr;
 
++ (instancetype)defaultConfigration;
+
+@end
+
+@interface AvatarListView : UIView
+
+@property (nonatomic, strong)AvatarListConfigration *configration;
+
 @property (nonatomic, copy)NSArray *avatarArr;
+
+@property (nonatomic, copy) void(^selectedBlock)(NSInteger item);
+
+- (instancetype)initWithFrame:(CGRect)frame
+                 configration:(AvatarListConfigration *)configration
+                    avatarArr:(NSArray *)avatarArr selectedBlock:(void(^)(NSInteger item)) selectedBlock;
 
 @end

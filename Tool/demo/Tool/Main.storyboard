@@ -18,6 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="5Cd-3A-uFK">
+                            <rect key="frame" x="0.0" y="463" width="375" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aau-Il-RDu" customClass="HFGradientButton">
+                                    <rect key="frame" x="15" y="10" width="345" height="47"/>
+                                    <state key="normal" title="确定">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="aau-Il-RDu" secondAttribute="trailing" constant="15" id="WAy-Ms-8fS"/>
+                                <constraint firstItem="aau-Il-RDu" firstAttribute="top" secondItem="5Cd-3A-uFK" secondAttribute="top" constant="10" id="Zsg-bh-kI7"/>
+                                <constraint firstAttribute="bottom" secondItem="aau-Il-RDu" secondAttribute="bottom" id="djo-fd-83B"/>
+                                <constraint firstItem="aau-Il-RDu" firstAttribute="leading" secondItem="5Cd-3A-uFK" secondAttribute="leading" constant="15" id="hZ4-UD-trY"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="i5V-Ze-TsC">
                                 <cells>
@@ -162,7 +181,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4a-iu-0rJ">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4a-iu-0rJ">
                                                     <rect key="frame" x="199.5" y="10" width="160.5" height="160.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="f4a-iu-0rJ" secondAttribute="height" id="5N4-AV-Ly1"/>
@@ -236,6 +255,7 @@
                     <navigationItem key="navigationItem" id="4M8-fA-sc3"/>
                     <connections>
                         <outlet property="avatarListView" destination="pcg-xC-pEx" id="BMp-Bt-de7"/>
+                        <outlet property="footerButton" destination="aau-Il-RDu" id="WgZ-wr-Xg2"/>
                         <outlet property="imageView" destination="l7J-Q7-mve" id="vMK-cH-CyK"/>
                         <outlet property="resultImageView" destination="f4a-iu-0rJ" id="tCh-Na-cPY"/>
                     </connections>
