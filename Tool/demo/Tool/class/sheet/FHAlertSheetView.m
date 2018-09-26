@@ -145,7 +145,7 @@
     _handler = [action valueForKey:@"handler"];
     __weak FHAlertAction *weakAction = action;
     [self hideAlertView];
-    _handler(weakAction);
+    if(weakAction)_handler(weakAction);
 }
 
 ///根据不同的action类型将点击按钮放在不同的位置
