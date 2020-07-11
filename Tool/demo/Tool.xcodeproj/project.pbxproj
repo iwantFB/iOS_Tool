@@ -25,6 +25,7 @@
 		7A1EA3E3211C680A00986B81 /* FHAlertSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3D7211C680A00986B81 /* FHAlertSheetView.m */; };
 		7A1EA3E4211C680A00986B81 /* FHAlertHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3D8211C680A00986B81 /* FHAlertHeaderView.m */; };
 		7A1EA3E5211C680A00986B81 /* FHAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1EA3DA211C680A00986B81 /* FHAlertAction.m */; };
+		7A26CFA824B9884E00CE09E8 /* HFUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A26CFA724B9884E00CE09E8 /* HFUIFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		7A1EA3D9211C680A00986B81 /* FHAlertSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAlertSheetView.h; sourceTree = "<group>"; };
 		7A1EA3DA211C680A00986B81 /* FHAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHAlertAction.m; sourceTree = "<group>"; };
 		7A1EA3DB211C680A00986B81 /* FHAlertHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHAlertHeaderView.h; sourceTree = "<group>"; };
+		7A26CFA624B9884E00CE09E8 /* HFUIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFUIFactory.h; sourceTree = "<group>"; };
+		7A26CFA724B9884E00CE09E8 /* HFUIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFUIFactory.m; sourceTree = "<group>"; };
 		A179C0B69956747C3A8FE7F0 /* Pods-Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tool.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tool/Pods-Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D75422F1FB87A10101178BF3 /* Pods_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -116,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				7A1EA3D5211C680A00986B81 /* sheet */,
+				7A26CFA624B9884E00CE09E8 /* HFUIFactory.h */,
+				7A26CFA724B9884E00CE09E8 /* HFUIFactory.m */,
 				7A189A1D20AFE84400BF29CC /* HFCircleImageView.h */,
 				7A189A2220AFE84400BF29CC /* HFCircleImageView.m */,
 				7A189A1E20AFE84400BF29CC /* AvatarListView.h */,
@@ -294,6 +299,7 @@
 				7A1EA3E5211C680A00986B81 /* FHAlertAction.m in Sources */,
 				7A189A3220AFE84400BF29CC /* YZVerifyButton.m in Sources */,
 				7A189A1620AFE76A00BF29CC /* main.m in Sources */,
+				7A26CFA824B9884E00CE09E8 /* HFUIFactory.m in Sources */,
 				7A189A3620AFE8DD00BF29CC /* ViewController.m in Sources */,
 				7A189A2D20AFE84400BF29CC /* HFNumberTextField.m in Sources */,
 				6536E49B20DCD07E00E79838 /* HFGradientButton.m in Sources */,
